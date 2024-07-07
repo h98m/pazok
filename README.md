@@ -1,7 +1,7 @@
 
-# Installation
+# <span style="color:blue;">Installation</span>
 
-## pypi URL:
+## <span style="color:green;">pypi URL:</span>
 [https://pypi.org/project/pazok/](https://pypi.org/project/pazok/)
 
 To install the library, use the following command:
@@ -9,21 +9,21 @@ To install the library, use the following command:
 pip install pazok
 ```
 
-# Function Explanations
+# <span style="color:blue;">Function Explanations</span>
 
-## The `tele_ms` Function
+## <span style="color:green;">The `tele_ms` Function</span>
 
 This function is designed to send messages to a specific Telegram user using the bot token and user's chat ID.
 
 The function supports sending formatted text using **MarkdownV2**. Supported formats include:
 
-- **Bold text:** `*text*`
-- *Italic text:* `_text_`
-- ~~Strikethrough text:~~ `~text~`
-- `Monospaced text:` `text`
-- [Text with a link:](https://example.com) `[text](url)`
-- ||Spoiler text:|| `||text||`
-- ```Code block:``` 
+- **<span style="color:orange;">Bold text:</span>** `*text*`
+- *<span style="color:orange;">Italic text:</span>* `_text_`
+- ~~<span style="color:orange;">Strikethrough text:</span>~~ `~text~`
+- <span style="color:orange;">Monospaced text:</span> `text`
+- <span style="color:orange;">[Text with a link:](https://example.com)</span> `[text](url)`
+- <span style="color:orange;">||Spoiler text:||</span> `||text||`
+- <span style="color:orange;">```Code block:```</span> 
   ```
   code
   ```
@@ -67,9 +67,9 @@ pazok.tele_ms(token, id, txt=text, file=file, buttons=buttons)
 pazok.tele_ms(token, id, txt=text, img=image, buttons=buttons)
 ```
 
-## Simple Functions
+## <span style="color:green;">Simple Functions</span>
 
-### Create a Random User Agent
+### <span style="color:purple;">Create a Random User Agent</span>
 **model:**
 Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
 

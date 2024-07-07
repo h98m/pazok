@@ -1,4 +1,188 @@
+<div class="container">
+            <div class="section">
+                <div class="section-title">Installation</div>
+                <p>
+                    pypi URL:
+                    <a href="https://pypi.org/project/pazok/"
+                        >https://pypi.org/project/pazok/</a
+                    >
+                </p>
+                <p>To install the library, use the following command:</p>
+                <pre><code>pip install pazok</code></pre>
+            </div>
+            <div class="section">
+                <div class="section-title">Function Explanations</div>
+                <div class="sub-section">
+                    <h3>The <code>tele_ms</code> Function</h3>
+                    <p>
+                        This function is designed to send messages to a specific
+                        Telegram user using the bot token and user's chat ID.
+                    </p>
+                    <p>
+                        The function supports sending formatted text using
+                        MarkdownV2. Supported formats include:
+                    </p>
+                    <ul>
+                        <li>Bold text: <code>*text*</code></li>
+                        <li>Italic text: <code>_text_</code></li>
+                        <li>Strikethrough text: <code>~text~</code></li>
+                        <li>Monospaced text: <code>`text`</code></li>
+                        <li>Text with a link: <code>[text](url)</code></li>
+                        <li>Spoiler text: <code>||text||</code></li>
+                        <li>Code block: <code>```code```</code></li>
+                    </ul>
+                    <p>
+                        It also supports sending files and images via URL or
+                        file path. The function automatically detects whether
+                        the input is a path or URL and handles it accordingly.
+                        If the file or image includes text, it will be
+                        automatically added to the file or image description.
+                        Additionally, the function supports sending buttons of
+                        type types.InlineKeyboardButton, allowing multiple
+                        buttons in the same message or just one button. Let's
+                        start with examples.
+                    </p>
+                    <pre><code># Importing the library
+import pazok
 
+# Bot and user information
+token = "token_bot"
+id = "chat.id"
+
+# Sending text only
+text = "test" # Can be formatted with any supported telebot library format
+pazok.tele_ms(token, id, txt=text)
+
+# Sending text with a button
+text = "test" # Can be formatted with any supported telebot library format
+button = "name_button", "url_button"
+# Sending multiple buttons in the same message
+buttons = [
+    "name_button1", "url_button1",
+    "name_button2", "url_button2",
+    "name_button3", "url_button3"
+]
+# Sending the button with text
+pazok.tele_ms(token, id, txt=text, buttons=buttons)
+
+# Sending a file or image using their path or URL with text and button
+text = "text"
+button = "name_button", "url_button"
+file = "Link or path to the file"
+image = "Link or image path"
+pazok.tele_ms(token, id, txt=text, file=file, buttons=buttons)
+
+# Note: It's possible to send either a file or an image in each message. It's not possible to send both an image and a file in the same message.
+
+# Sending an image
+pazok.tele_ms(token, id, txt=text, img=image, buttons=buttons)</code></pre>
+                </div>
+                <div class="sub-section">
+                    <h3>Simple Functions</h3>
+                    <h4>Create a Random User Agent</h4>
+                    <p>model:</p>
+                    <p>
+                        Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36
+                        (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
+                    </p>
+                    <p>Here's an example:</p>
+                    <pre><code>import pazok
+pazok.agnt()</code></pre>
+                    <h4>Create an Instagram-Specific User Agent</h4>
+                    <p>model:</p>
+                    <p>
+                        Instagram 136.0.0.34.124 Android (23/6.0.1; 640dpi;
+                        1440x2560; samsung; SM-G935; hero2lte;
+                        samsungexynos8890; en_US; 208061712)
+                    </p>
+                    <p>Here's an example:</p>
+                    <pre><code>import pazok
+pazok.agnt_in()</code></pre>
+                    <h4>Get Cookies from the Instagram API</h4>
+                    <p>
+                        The next function is to obtain some cookies from the
+                        Instagram API. The cookie names that can be obtained are
+                        csrftoken and mid.
+                    </p>
+                    <p>Here's an example:</p>
+                    <pre><code>
+import pazok
+                        
+cok = pazok.cook()
+print(cok.csrftoken)
+print(cok.mid)
+
+# Or like this:
+print(pazok.cook().csrftoken)
+print(pazok.cook().mid)</code></pre>
+                </div>
+
+                <div class="sub-section">
+                    <h3>Text Decoration Functions</h3>
+                    <p>Now we have some functions to decorate the text.</p>
+                    <p>
+                        Function to display text with fading effect. This
+                        function changes the color of text from black to white
+                        across all shades of these colors to create a smooth
+                        fading effect. You can also adjust the duration of the
+                        effect and the text alignment format if you want it in
+                        the center of the screen type True or in its normal form
+                        type False. Here is an example:
+                    </p>
+                    <p>First function</p>
+
+                    <h4>Display Text with a Fading Effect</h4>
+                    <pre><code>
+import pazok
+                    
+text = "test" # The text
+time = 0.05 # Duration of the effect
+align = True # If you want it continuously centered, write False
+
+pazok.tl(text, time, align)</code></pre>
+                    <h4>Decorate English Letters with 8 Types</h4>
+                    <pre><code>
+import pazok
+                        
+pazok.info_motifs()
+
+# Pattern 1: 𝗛𝗲𝗹𝗹𝗼 𝗪𝗼𝗿𝗹𝗱 𝟭𝟮𝟯
+# Pattern 2: 𝙷𝚎𝚕𝚕𝚘 𝚆𝚘𝚛𝚕𝚍 𝟷𝟸𝟹
+# Pattern 3: 𝐇𝐞𝐥𝐥𝐨 𝐖𝐨𝐫𝐥𝐝 𝟏𝟐𝟑
+# Pattern 4: ʜᥱᥣᥣ᥆ ᴡ᥆ᖇᥣძ 𝟙𝟚𝟛
+# Pattern 5: ᕼᗴᒪᒪO ᗯOᖇᒪᗪ 123
+# Pattern 6: 𝕳𝖊𝖑𝖑𝖔 𝖂𝖔𝖗𝖑𝖉 123
+# Pattern 7: 𝓗𝓮𝓵𝓵𝓸 𝓦𝓸𝓻𝓵𝓭 123
+# Pattern 8: ℍ𝕖𝕝𝕝𝕠 𝕎𝕠𝕣𝕝𝕕 𝟙𝟚𝟛
+
+# Using the decoration function
+print(pazok.motifs("text", 1))</code></pre>
+                    <h4>Using Pre-Made Colors in the Library</h4>
+                    <p> This function consists of ready-made colors in the library. Using this function is different from other functions in that we must call the library in this way</p>
+                    
+                    <pre><code>
+import pazok
+                        
+from pazok import *
+
+# Display color names
+print(pazok.name_clo())
+
+# o = orange
+# b = blue
+# m = white
+# F = dark green
+# Z = light red
+# e = dark gray
+# C = strong white
+# p = wide line
+# X = yellow
+# j = pink
+# E = light gray
+
+# Using the color
+print(f"{e} TEST")</code></pre>
+                </div>
                 <div class="sub-section">
                     <h3>Display Text with a Waiting Pattern</h3>
                     <p>We have two functions that do the same job almost</p>
@@ -181,7 +365,7 @@ print(pazok.json_req(response_variable))
                 </div>
                 <div class="sub-section">
                     <h3>Execute Functions with Multiple Threads</h3>
-                    <p>The function's task is to execute functions with multiple threads, specifying the number of threads. Here's an example:
+              <p>The function's task is to execute functions with multiple threads, specifying the number of threads. Here's an example:
 </p>
                     <pre><code>
 import pazok
@@ -286,8 +470,4 @@ import pazok
 pazok.install("requests", "random", "threading")
 
 # You can specify any number of libraries</code></pre>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+            

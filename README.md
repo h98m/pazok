@@ -490,11 +490,15 @@ import pazok
 
 text = "Arabic or English text"
 
-line_path = ""  # Enter the desired path or leave it empty to use the default font
+line_path = "Set the line path"  # Enter the desired path or leave it empty to use the default font
 
 size = 25  # Or leave it empty to use the default value
 
 style = 1  # There are two styles, you can leave it empty or set it to 2
+
+test=pazok.art_ar(text,line_path,size,style)
+print(test)
+
 ```
 
 ___

@@ -62,6 +62,8 @@ except:
     os.system("pip install arabic-reshaper")
     os.system("pip install python-bidi")
 
+def tesst():
+   print("وفف")
 
 #- - - - - - - - - - - - - - -- - - - - - -- - - - - #
 #لوكو

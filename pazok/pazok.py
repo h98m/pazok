@@ -34,6 +34,7 @@ try:
     from fake_useragent import UserAgent
     from colorama import init, Fore, Back, Style
     from asciimatics.renderers import ImageFile
+    import dotenv
 except:
     os.system("pip install argparse")
     os.system("pip install datetime")
@@ -61,6 +62,7 @@ except:
     os.system("pip install base64")
     os.system("pip install arabic-reshaper")
     os.system("pip install python-bidi")
+    os.system("pip install dotenv")
 
 def tesst():
    print("وفف")
@@ -221,6 +223,9 @@ def convertorVoice(file_path, lang_type = None):
     
     => return text
     """
+    from dotenv import load_dotenv
+
+    load_dotenv()  
     api = os.getenv("api")
     try:
         with open(file_path, "rb") as f:

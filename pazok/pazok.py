@@ -218,7 +218,7 @@ def convertorVoice(file_path, lang_type = None):
 
     if you know the voice lang  
         convertorVoice("my_voice_file_name")
-
+    
     => return text
     """
     api = os.getenv("api")
@@ -230,7 +230,6 @@ def convertorVoice(file_path, lang_type = None):
         return response.json()
     except Exception as e:
         return {"error": e}
-
 #- - - - - - - - - - - - - - - - - - - - -- - - - - #
                                 
 

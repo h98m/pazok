@@ -62,6 +62,33 @@ pazok.tele_ms(token, id, txt=text, img=image, buttons=buttons)
 ___
 
 
+# New func added to module 😍.
+### Run your func multi times:
+`Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36`
+### Here's an example:
+```python
+import pazok
+# pazok.for_loop_func(func, times, *prams)
+
+def sayhi_name(name, age):
+    print(f"Hi {name} Your age is {age}")
+
+
+pazok.for_loop_func(sayhi_name, 5, "ahmed", 21)
+
+# OutPut:
+    ahmed
+    ahmed
+    ahmed
+    ahmed
+    ahmed
+```
+
+___
+
+___
+
+
 # Now we have some simple functions.
 ### The next function is to create a random user agent in this format:
 `Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36`

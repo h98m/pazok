@@ -1124,6 +1124,22 @@ def cook():
 #        
 #tele_check(,token, 790448681)
 
+
+
+
+
+
+#- - - - - - - - - - - - - - -- - - - - - -- - - - - #
+# Its me ahmed
+
+def for_loop_func(func, times, *prams):
+    while times > 0:
+        func(*prams)
+        times -=1
+#- - - - - - - - - - - - - - -- - - - - - -- - - - - #
+
+
+
 #- - - - - - - - - - - - - - -- - - - - - -- - - - - #
 #زخرفه
 

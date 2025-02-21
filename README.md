@@ -72,8 +72,7 @@ import pazok
 def sayhi_name(name, age):
     print(f"Hi {name} Your age is {age}")
 
-
-pazok.for_loop_func(sayhi_name, 5, "ahmed", 21)
+pazok.pazok.for_loop_func(sayhi_name, 5, "ahmed", 21)
 
 # OutPut:
     ahmed

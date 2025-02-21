@@ -227,13 +227,12 @@ def convertorVoice(file_path, lang_type = None):
             files = {"file": f}
             data = {"language": lang_type} if lang_type else None
             response = requests.post(api, files=files, data=data)
-        return response
+        return response.json()
     except Exception as e:
         return {"error": e}
 
 #- - - - - - - - - - - - - - - - - - - - -- - - - - #
                                 
-
 
 
 #- - - - - - - - - - - - - - - - - - - - -- - - - - #

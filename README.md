@@ -58,32 +58,6 @@ pazok.tele_ms(token, id, txt=text, file=file, buttons=buttons)
 # Sending an image
 pazok.tele_ms(token, id, txt=text, img=image, buttons=buttons)
 ```
-
-___
-
-
-# New func added to module 😍.
-### Run your func multi times:
-### Here's an example:
-```python
-import pazok
-# pazok.for_loop_func(func, times, *prams)
-
-def sayhi_name(name, age):
-    print(f"Hi {name} Your age is {age}")
-
-pazok.pazok.for_loop_func(sayhi_name, 5, "ahmed", 21)
-
-# OutPut:
-    ahmed
-    ahmed
-    ahmed
-    ahmed
-    ahmed
-```
-
-___
-
 ___
 
 

@@ -1128,18 +1128,6 @@ def cook():
 
 
 
-
-#- - - - - - - - - - - - - - -- - - - - - -- - - - - #
-# Its me ahmed
-
-def for_loop_func(func, times, *prams):
-    while times > 0:
-        func(*prams)
-        times -=1
-#- - - - - - - - - - - - - - -- - - - - - -- - - - - #
-
-
-
 #- - - - - - - - - - - - - - -- - - - - - -- - - - - #
 #زخرفه
 

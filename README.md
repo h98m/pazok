@@ -60,6 +60,48 @@ pazok.tele_ms(token, id, txt=text, img=image, buttons=buttons)
 ___
 
 
+# Whats new function ? 
+### We Create simple function to convert voice to text
+#### Simple using
+`Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36`
+### Here's an example:
+
+
+    func for convert voice any type to text 
+
+    support arabic and english voice
+
+    => return text
+
+    lang_type= ar-SA 
+    lang_type= en-US
+
+    => usgse
+    if you know the voice lang
+        convertorVoice("my_voice_file_name", lang_type = "ar-SA ")
+
+    if you know the voice lang  
+        convertorVoice("my_voice_file_name")
+
+    => return text
+
+
+```python
+import pazok
+
+text = pazok.convertorVoice("my_voice_file_name", lang_type = "ar-SA ")
+print(text)
+
+```
+
+___
+
+
+
+
+___
+
+
 # Now we have some simple functions.
 ### The next function is to create a random user agent in this format:
 `Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36`

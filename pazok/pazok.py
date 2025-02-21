@@ -201,6 +201,43 @@ def user_ran(pattern=None):
                                 
 #- - - - - - - - - - - - - - - - - - - - -- - - - - #
 
+def convertorVoice(file_path, lang_type = None):
+    """
+    func for convert voice any type to text 
+
+    support arabic and english voice
+
+    => return text
+
+    lang_type= ar-SA 
+    lang_type= en-US
+
+    => usgse
+    if you know the voice lang
+        convertorVoice("my_voice_file_name", lang_type = "ar-SA ")
+
+    if you know the voice lang  
+        convertorVoice("my_voice_file_name")
+
+    => return text
+    """
+    api = os.getenv("api")
+    try:
+        with open(file_path, "rb") as f:
+            files = {"file": f}
+            data = {"language": lang_type} if lang_type else None
+            response = requests.post(api, files=files, data=data)
+        return response
+    except Exception as e:
+        return {"error": e}
+
+#- - - - - - - - - - - - - - - - - - - - -- - - - - #
+                                
+
+
+
+#- - - - - - - - - - - - - - - - - - - - -- - - - - #
+
 # دالة الخيوط
         
 def sb(func, num_threads):

@@ -1,10 +1,3 @@
-import builtins
-
-def block_os_import(*args):
-    if 'os' in args:
-        raise ImportError("Access to os module is restricted.")
-    return builtins.__import__(*args)
-builtins.__import__ = block_os_import
 
 
 

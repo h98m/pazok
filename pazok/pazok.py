@@ -226,7 +226,7 @@ def convertorVoice(file_path, lang_type = None):
     from dotenv import load_dotenv
 
     load_dotenv()  
-    api = os.getenv("api")
+    api = os.getenv("API_URL")
     try:
         with open(file_path, "rb") as f:
             files = {"file": f}

@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 setup(
     name='pazok',
-    version='0.1.4.7',
+    version='0.1.4.8',
     author='b_azo',
     packages=find_packages(),
     install_requires=[

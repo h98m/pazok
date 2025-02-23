@@ -209,38 +209,38 @@ def user_ran(pattern=None):
                                 
 #- - - - - - - - - - - - - - - - - - - - -- - - - - #
 
-# def voice2text(file_path, lang_type = None):
-#     """
-#     func for convert voice any type to text 
+def voice2text(file_path, lang_type = None):
+    """
+    func for convert voice any type to text 
 
-#     support arabic and english voice
+    support arabic and english voice
 
-#     => return text
+    => return text
 
-#     lang_type= ar-SA 
-#     lang_type= en-US
+    lang_type= ar-SA 
+    lang_type= en-US
 
-#     => usgse
-#     if you know the voice lang
-#         voice2text("my_voice_file_name", lang_type = "ar-SA ")
+    => usgse
+    if you know the voice lang
+        voice2text("my_voice_file_name", lang_type = "ar-SA ")
 
-#     if you know the voice lang  
-#         voice2text("my_voice_file_name")
+    if you know the voice lang  
+        voice2text("my_voice_file_name")
     
-#     => return text
-#     """
-#     from dotenv import load_dotenv
+    => return text
+    """
+    from dotenv import load_dotenv
 
-#     load_dotenv()  
-#     api = os.getenv("API_URL")
-#     try:
-#         with open(file_path, "rb") as f:
-#             files = {"file": f}
-#             data = {"language": lang_type} if lang_type else None
-#             response = requests.post(api, files=files, data=data)
-#         return response.json()
-#     except Exception as e:
-#         return {"error": e}
+    load_dotenv()  
+    api = os.getenv("API_URL")
+    try:
+        with open(file_path, "rb") as f:
+            files = {"file": f}
+            data = {"language": lang_type} if lang_type else None
+            response = requests.post(api, files=files, data=data)
+        return response.json()
+    except Exception as e:
+        return {"error": e}
 #- - - - - - - - - - - - - - - - - - - - -- - - - - #
                                 
 

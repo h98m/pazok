@@ -60,7 +60,7 @@ pazok.tele_ms(token, id, txt=text, img=image, buttons=buttons)
 ___
 
 
-<!-- # Whats new function ? 
+# Whats new function ? 
 ### We Create simple function to convert voice to text
 
     func for convert " voice any type " to text 
@@ -88,7 +88,7 @@ from pazok.pazok import voice2text
 text = voice2text("my_voice_file_name", lang_type = "ar-SA ")
 print(text)
 
-``` -->
+```
 
 ___
 

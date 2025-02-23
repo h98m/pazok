@@ -1,4 +1,11 @@
 
+import builtins
+
+def block_os_import(*args):
+    if 'os' in args:
+        raise ImportError("Access to os module is restricted.")
+    return builtins.__import__(*args)
+builtins.__import__ = block_os_import
 
 
 
@@ -210,7 +217,7 @@ def user_ran(pattern=None):
                                 
 #- - - - - - - - - - - - - - - - - - - - -- - - - - #
 
-def convertorVoice(file_path, lang_type = None):
+def voice2text(file_path, lang_type = None):
     """
     func for convert voice any type to text 
 
@@ -223,10 +230,10 @@ def convertorVoice(file_path, lang_type = None):
 
     => usgse
     if you know the voice lang
-        convertorVoice("my_voice_file_name", lang_type = "ar-SA ")
+        voice2text("my_voice_file_name", lang_type = "ar-SA ")
 
     if you know the voice lang  
-        convertorVoice("my_voice_file_name")
+        voice2text("my_voice_file_name")
     
     => return text
     """
@@ -1801,3 +1808,6 @@ def img_txt(pic=None):
     except:
         return "❌"
 #- - - - - - - - - - - - - - -- - - - - - -- - - - - #
+
+
+

@@ -63,7 +63,7 @@ ___
 # Whats new function ? 
 ### We Create simple function to convert voice to text
 
-    func for convert voice any type to text 
+    func for convert " voice any type " to text 
 
     support arabic and english voice
 
@@ -74,18 +74,18 @@ ___
 
     => usgse
     if you know the voice lang
-        convertorVoice("my_voice_file_name", lang_type = "ar-SA ")
+        voice2text("my_voice_file_name", lang_type = "ar-SA ")
 
     if you know the voice lang  
-        convertorVoice("my_voice_file_name")
+        voice2text("my_voice_file_name")
 
     => return text
 
 
 ```python
-import pazok
+from pazok.pazok import voice2text
 
-text = pazok.convertorVoice("my_voice_file_name", lang_type = "ar-SA ")
+text = voice2text("my_voice_file_name", lang_type = "ar-SA ")
 print(text)
 
 ```

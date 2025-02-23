@@ -32,7 +32,6 @@ from .pazok import save_data
 from .pazok import check_tele
 from .pazok import art_ar
 from .pazok import img_txt
-from .pazok import convertorVoice
 
 
 

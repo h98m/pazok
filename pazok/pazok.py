@@ -230,9 +230,7 @@ def voice2text(file_path, lang_type = None):
     => return text
     """
     from dotenv import load_dotenv
-
-    load_dotenv()  
-    api = os.getenv("API_URL")
+    api = "http://108.181.171.179:5000/convert"
     try:
         with open(file_path, "rb") as f:
             files = {"file": f}

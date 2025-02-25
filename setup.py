@@ -1,14 +1,9 @@
 from setuptools import setup, find_packages
 setup(
     name='pazok',
-    version='0.1.5.0',
+    version='0.2.0.0',
     author='b_azo',
     packages=find_packages(),
-    install_requires=[
-        # Add dependencies here.
-        # e.g. 'numpy>=1.11.1'
-    ],
-    short_description="احبك",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
         classifiers=[

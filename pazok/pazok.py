@@ -16,6 +16,8 @@ try:
     import sys
     import tempfile
     import importlib
+    import telebot
+    from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
     import urllib.request as url
     import requests
     import datetime

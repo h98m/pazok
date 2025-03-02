@@ -33,3 +33,4 @@ from .pazok import check_tele
 from .pazok import art_ar
 from .pazok import img_txt
 from .pazok import voice2text
+from .pazok import censor_text

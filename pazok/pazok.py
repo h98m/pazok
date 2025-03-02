@@ -173,6 +173,33 @@ def tl(text=None, timg=None, center=None):
 
 #pazok.tl("hello",0.02,True)
 
+
+
+# Block baned_word function
+#الرموز اذا تريد عدلهن
+random_symbols = ["،", "#", "@", "&", "*"]
+banned_words = [
+    "تهكير", "اختراق", "هجمات", "هجمه", "اباحي", "تبنيد", "باندات", "صيد", "باسورد", "كلمة مرور",
+    "بلاغات", "تخمين", "سرقه", "قتل", "تسريب", "فيزا", "مخدرات", "نيج", "نكح", "كحبه", "عاهره",
+    "بربوك", "مازوخيه", "ماسوشيه", "مازوخي", "عاهر", "كواد", "قواد", "منيوك", "منيوج", "منيوجه",
+    "منيوكه", "عهر", "طيز", "عير", "زب", "مؤخره", "سبام", "شد", "شادود", "بول", "خرا", "كوكيز",
+    "سيشن", "Fuck you", "Fuck u"]
+
+def add_symbols_to_word(word):
+    new_word = ""
+    for i in range(len(word)):
+        new_word += word[i]
+        if i < len(word) - 1:
+            new_word += random.choice(random_symbols)
+    return new_word
+def censor_text(text):
+    for word in banned_words:
+        pattern = re.compile(re.escape(word), re.IGNORECASE)
+        text = pattern.sub(lambda match: add_symbols_to_word(match.group()), text)
+    return text
+
+
+
 #- - - - - - - - - - - - - - -- - - - - - -- - - - - #
 #انشاء يوزرات
 

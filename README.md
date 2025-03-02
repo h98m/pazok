@@ -60,6 +60,17 @@ pazok.tele_ms(token, id, txt=text, img=image, buttons=buttons)
 ___
 
 
+# دالة دلول وظيفتها تبدل الكلمات المحظورة الى كلمات بريئة
+### Convert bad words to good words
+####طريقة الاستخدام
+```python
+import pazok
+test = censor_text("اداة صيد حلوين البصرا")
+print(test)
+```
+
+
+
 # Whats new function ? 
 ### We Create simple function to convert voice to text
 

@@ -16,6 +16,8 @@ try:
     import sys
     import tempfile
     import importlib
+    import telebot
+    from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
     import urllib.request as url
     import requests
     import datetime
@@ -291,22 +293,28 @@ def sb(func, num_threads):
 
 #ارسال تلي حديث
 
+def html_tx(md_text):
+    md_text = re.sub(r'\*(.*?)\*', r'<b>\1</b>', md_text)
+    md_text = re.sub(r'_(.*?)_', r'<i>\1</i>', md_text)
+    md_text = re.sub(r'~(.*?)~', r'<u>\1</u>', md_text)
+    md_text = re.sub(r'-(.*?)-', r'<s>\1</s>', md_text)
+    md_text = re.sub(r'`(.*?)`', r'<code>\1</code>', md_text)
+    md_text = re.sub(r'\[(.*?)\]\((.*?)\)', r'<a href="\2">\1</a>', md_text)
+    return md_text
+
+
 def tele_ms(token, id, txt=None, file=None, img=None, buttons=None):
     if not token or not id or txt is None:
         raise ValueError("يرجى اضافة توكن وايدي ونص على الاقل")
-    
-    import telebot
-    from telebot import types
-    import requests
-    import os
 
     bot = telebot.TeleBot(token)
-    keyboard = types.InlineKeyboardMarkup()
+    keyboard = InlineKeyboardMarkup()
+
     if buttons:
         for i in range(0, len(buttons), 2):
             button_name = buttons[i]
             button_url = buttons[i + 1]
-            button = types.InlineKeyboardButton(button_name, url=button_url)
+            button = InlineKeyboardButton(button_name, url=button_url)
             keyboard.add(button)
 
     def download_file_from_url(url):
@@ -316,24 +324,26 @@ def tele_ms(token, id, txt=None, file=None, img=None, buttons=None):
             f.write(response.content)
         return file_name
 
+    if txt:
+        txt = html_tx(txt)
+
     if file or img:
         if img:
             if img.startswith('http'):
-                bot.send_photo(id, photo=img, caption=txt, parse_mode='Markdown', reply_markup=keyboard)
+                bot.send_photo(id, photo=img, caption=txt, parse_mode='HTML', reply_markup=keyboard)
             else:
-                bot.send_photo(id, open(img, 'rb'), caption=txt, parse_mode='MarkdownV2', reply_markup=keyboard)
+                bot.send_photo(id, open(img, 'rb'), caption=txt, parse_mode='HTML', reply_markup=keyboard)
         
         if file:
             if file.startswith('http'):
                 file_path = download_file_from_url(file)
-                bot.send_document(id, open(file_path, 'rb'), caption=txt, parse_mode='MarkdownV2', reply_markup=keyboard)
+                bot.send_document(id, open(file_path, 'rb'), caption=txt, parse_mode='HTML', reply_markup=keyboard)
                 os.remove(file_path)
             else:
-                bot.send_document(id, open(file, 'rb'), caption=txt, parse_mode='MarkdownV2', reply_markup=keyboard)
+                bot.send_document(id, open(file, 'rb'), caption=txt, parse_mode='HTML', reply_markup=keyboard)
 
     elif txt:
-        bot.send_message(id, txt, parse_mode='MarkdownV2', reply_markup=keyboard)
-
+        bot.send_message(id, txt, parse_mode='HTML', reply_markup=keyboard)
 
 
 #توكن

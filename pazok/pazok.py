@@ -11,6 +11,7 @@ try:
     import secrets
     import arabic_reshaper
     import base64
+    from concurrent.futures import ThreadPoolExecutor
     import subprocess
     import sys
     import tempfile
@@ -250,13 +251,11 @@ def voice2text(file_path, lang_type = None):
 # دالة الخيوط
         
 def sb(func, num_threads):
-    threads = []
-    for _ in range(int(num_threads)+2):
-        thread = threading.Thread(target=func)
-        threads.append(thread)
-        thread.start()
-    for thread in threads:
-        thread.join()
+    with ThreadPoolExecutor(max_workers=num_threads) as executor:
+        futures = [executor.submit(func) for _ in range(num_threads)]
+        for future in futures:
+            future.result()
+
 
 
 #def txt():

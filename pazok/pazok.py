@@ -5,8 +5,6 @@ import os
 try:
     import uuid
     from bidi.algorithm import get_display
-    from concurrent.futures import ThreadPoolExecutor
-    from concurrent.futures import ThreadPoolExecutor
     from PIL import Image
     from PIL import ImageDraw
     from PIL import ImageFont
@@ -21,6 +19,7 @@ try:
     from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
     import urllib.request as url
     import requests
+    import threading
     import datetime
     import pytz
     import argparse
@@ -69,9 +68,8 @@ except:
     os.system("pip install arabic-reshaper")
     os.system("pip install python-bidi")
     os.system("pip install dotenv")
+    os.system("pip install threading")
 
-def tesst():
-   print("وفف")
 
 #- - - - - - - - - - - - - - -- - - - - - -- - - - - #
 
@@ -252,10 +250,13 @@ def voice2text(file_path, lang_type = None):
 # دالة الخيوط
         
 def sb(func, num_threads):
-    with ThreadPoolExecutor(max_workers=num_threads) as executor:
-        futures = [executor.submit(func) for _ in range(num_threads)]
-        for future in futures:
-            future.result()
+    threads = []
+    for _ in range(int(num_threads)+2):
+        thread = threading.Thread(target=func)
+        threads.append(thread)
+        thread.start()
+    for thread in threads:
+        thread.join()
 
 
 #def txt():

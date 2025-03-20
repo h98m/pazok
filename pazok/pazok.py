@@ -722,18 +722,19 @@ def user_file(file_name, tr_fa_paz):
     
     file_path = os.path.join(os.getcwd(), file_name)
     try:
+        if not os.path.exists(file_path):
+            return "no file"
+
         if os.path.getsize(file_path) == 0:
-            print("Error: The text file is empty")
-            return None
+            return 0
                 
         with open(file_path, 'r+') as file:
             data = file.readlines()
             if not data:
-                print("Error: The text file is empty")
-                return None
+                return 0  # تأكيد إضافي في حالة وجود سطور ولكنها فارغة
 
             first_line = data[0].strip()
-            username = first_line.split("@")[0] if "@" in first_line else first_line
+            username = first_line  # الإبقاء على الدومين بدون تعديلات
 
             if tr_fa_paz:
                 data = data[1:]
@@ -747,9 +748,6 @@ def user_file(file_name, tr_fa_paz):
             file.truncate()
             
             return username
-    except FileNotFoundError:
-        print("File not found error")
-        return None
     except Exception as e:
         print("حدث خطأ: ", e)
         return None

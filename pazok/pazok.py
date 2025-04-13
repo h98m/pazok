@@ -150,6 +150,27 @@ def love():
 
 #- - - - - - - - - - - - - - -- - - - - - -- - - - - #
 
+#اختيار عنصو عشوائي مع نسبه/بدون
+def rand_it(simple_list, default_weight=20):
+    parsed_items = []
+    for item in simple_list:
+        if ":" in item:
+            name, weight = item.split(":", 1)
+            parsed_items.append((name.strip(), float(weight.strip())))
+        else:
+            parsed_items.append((item.strip(), float(default_weight)))
+    total = sum(weight for _, weight in parsed_items)
+    weights = [weight / total for _, weight in parsed_items]
+    choices = [item for item, _ in parsed_items]
+    return random.choices(choices, weights=weights, k=1)[0]
+
+
+#names = ["hi:40","py:90"]
+#print(rand_it(names))
+
+#- - - - - - - - - - - - - - -- - - - - - -- - - - - #
+
+
 #دالة تلاشي النص
 def tl(text=None, timg=None, center=None):
     if timg is None or center is None or text is None:

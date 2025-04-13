@@ -60,16 +60,22 @@ pazok.tele_ms(token, id, txt=text, img=image, buttons=buttons)
 ___
 
 
-# دالة دلول وظيفتها تبدل الكلمات المحظورة الى كلمات بريئة
-### Convert bad words to good words
-####طريقة الاستخدام
+# Function: rand_it
+
+## Description:
+### The rand_it function selects a random item from a list based on specified weights.
+### If no weight is provided for an item, it is assigned a default weight of 20.
+
 ```python
 import pazok
-test = censor_text("اداة صيد حلوين البصرا")
-print(test)
+names = ["hi:50", "py", "hello:90"]
+result = pazok.rand_it(names)
+print(result)
 ```
+### The function randomly selects an item from the list, giving preference to those with higher weights.
+### Items without weights are assigned a default weight of 20.
 
-
+___
 
 # Whats new function ? 
 ### We Create simple function to convert voice to text

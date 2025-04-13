@@ -16,6 +16,7 @@ from .pazok import agnt_in
 from .pazok import name_clo
 from .pazok import sleep
 from .pazok import user_file
+from .pazok import rand_it
 from .pazok import file_np
 from .pazok import log_in
 from .pazok import json_req

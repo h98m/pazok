@@ -150,6 +150,76 @@ def love():
 
 #- - - - - - - - - - - - - - -- - - - - - -- - - - - #
 
+
+def agnt_lite():
+    devices = [
+        ("Samsung", "SM-G960F", "starqlte"),
+        ("Samsung", "SM-G965F", "starlte"),
+        ("Samsung", "SM-G970F", "beyond0"),
+        ("Samsung", "SM-G973F", "beyond1"),
+        ("Samsung", "SM-G975F", "beyond2"),
+        ("Samsung", "SM-G980F", "beyond0"),
+        ("Samsung", "SM-G985F", "beyond2"),
+        ("Samsung", "SM-N970F", "crownqltesq"),
+        ("Samsung", "SM-N975F", "crown2ltexx"),
+        ("Google",  "Pixel 3",   "blueline"),
+        ("Google",  "Pixel 3 XL","crosshatch"),
+        ("Google",  "Pixel 4",   "flame"),
+        ("Google",  "Pixel 4 XL","coral"),
+        ("Google",  "Pixel 5",   "redfin"),
+        ("Google",  "Pixel 6",   "oriole"),
+        ("Google",  "Pixel 6 Pro","raven"),
+        ("OnePlus", "GM1901",    "OnePlus6"),
+        ("OnePlus", "HD1901",    "OnePlus7"),
+        ("OnePlus", "IN2013",    "OnePlus8"),
+        ("OnePlus", "LE2113",    "OnePlus9"),
+        ("Xiaomi",  "M2007J20CG", "lmi"),
+        ("Xiaomi",  "M2101K6G",   "venus"),
+        ("Xiaomi",  "M2102J20SG", "vayu"),
+        ("Xiaomi",  "M2103K19C",  "alioth"),
+        ("Xiaomi",  "M2012K11AG", "umi"),
+        ("Xiaomi",  "M2012K11AC", "umi"),
+        ("Huawei",  "VOG-L29",   "vogue"),
+        ("Huawei",  "P30 Pro",   "P30"),
+        ("Huawei",  "ANE-LX1",   "HWANeve"),
+        ("Huawei",  "ELS-N29",   "HWELE"),
+        ("Oppo",    "CPH1911",   "OP4C"),
+        ("Oppo",    "CPH1951",   "OP5A"),
+        ("Vivo",    "V2020",     "vivo1901"),
+        ("Vivo",    "PD2001",    "vivo2001"),
+        ("Realme",  "RMX3031",   "RMX3031"),
+        ("Sony",    "G8141",     "discovery"),
+        ("LG",      "LM-G820",   "judyln"),
+        ("Motorola","XT1965-3",  "channel")]
+    chipsets   = ["qcom", "exynos9810", "kirin980", "mt6785", "snapdragon888"]
+    locales    = ["en_US", "ar_EG_#u-nu-latn", "fr_FR", "es_ES", "pt_BR", "ru_RU"]
+    resolutions = [(1440,2560), (1080,2340), (720,1520), (1080,2400), (1440,3040), (1080,2400)]
+    dpis = [280, 320, 360, 420, 440, 480, 560]
+    manufacturer, model, device_oem = random.choice(devices)
+    chipset   = random.choice(chipsets)
+    locale    = random.choice(locales)
+    width, height = random.choice(resolutions)
+    dpi       = random.choice(dpis)
+    os_ver_list = ["9.0", "10.0", "11.0", "12.0", "13.0"]
+    os_ver     = random.choice(os_ver_list)
+    api_levels = {"9.0":"28", "10.0":"29", "11.0":"30", "12.0":"31", "13.0":"33"}
+    api_level  = api_levels[os_ver]
+    build      = f"MMB29M"
+    wv_ver     = "4.0"
+    chrome_ver = f"{random.randint(60,140)}.0.0.{random.randint(1000,9999)}"
+    insta_ver  = f"{random.randint(200,300)}.0.0.{random.randint(0,50)}.{random.randint(0,500)}"
+    device_id  = random.randint(100_000_000, 999_999_999)
+
+    ua = (
+        f"Mozilla/5.0 (Linux; Android {os_ver}; {model} Build/{build}; wv) "
+        f"AppleWebKit/537.36 (KHTML, like Gecko) Version/{wv_ver} "
+        f"Chrome/{chrome_ver} Mobile Safari/537.36 "
+        f"Instagram {insta_ver} Android "
+        f"({api_level}/{os_ver}; {dpi}dpi; {width}x{height}; "
+        f"{manufacturer}; {model}; {device_oem}; {chipset}; {locale}; {device_id})")
+    return ua
+
+#----------------
 #اختيار عنصو عشوائي مع نسبه/بدون
 def rand_it(simple_list, default_weight=20):
     parsed_items = []

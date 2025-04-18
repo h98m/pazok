@@ -12,6 +12,7 @@ from .pazok import pazok_halo
 from .pazok import name_halo
 from .pazok import picture
 from .pazok import agnt
+from .pazok import agnt_lite
 from .pazok import agnt_in
 from .pazok import name_clo
 from .pazok import sleep

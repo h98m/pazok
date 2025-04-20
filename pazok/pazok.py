@@ -42,6 +42,11 @@ try:
     from colorama import init, Fore, Back, Style
     from asciimatics.renderers import ImageFile
     import dotenv
+    import email
+    from email import policy
+    from html import unescape
+    import time
+
 except:
     os.system("pip install argparse")
     os.system("pip install datetime")
@@ -149,67 +154,108 @@ def love():
 
 
 
-class tempmail:
-    class EmailMessage:
-        def __init__(self, raw: dict):
-            self._raw = raw
-            self.id              = raw.get("id")
-            self.msgid           = raw.get("msgid")
-            self.from_address    = raw.get("from", {}).get("address")
-            self.from_name       = raw.get("from", {}).get("name")
-            self.to              = [r.get("address") for r in raw.get("to", [])]
-            self.subject         = raw.get("subject")
-            self.intro           = raw.get("intro")
-            self.seen            = raw.get("seen")
-            self.has_attachments = raw.get("hasAttachments")
-            self.size            = raw.get("size")
-            self.download_url    = raw.get("downloadUrl")
-            self.created_at      = raw.get("createdAt")
-            self.updated_at      = raw.get("updatedAt")
-
-        def __repr__(self):
-            return (f"<EmailMessage from={self.from_address!r} "
-                    f"subject={self.subject!r} at {self.created_at}>")
-
-        def as_dict(self):
-            return self._raw
+class email_timp:
+    BASE_URL = "https://api.mail.tm"
 
     def __init__(self):
-        self._base_url     = "https://api.mail.tm"
-        self._domains_url  = f"{self._base_url}/domains"
-        self._accounts_url = f"{self._base_url}/accounts"
-        self._token_url    = f"{self._base_url}/token"
-        self._messages_url = f"{self._base_url}/messages"
-        self.session = requests.Session()
-        self.email, self.password = self._create_account()
-        self.token = self._get_token()
-        self.session.headers.update({"Authorization": f"Bearer {self.token}"})
+        self.email = None
+        self.password = None
+        self.token = None
 
-    def _create_account(self):
-        domains = self.session.get(self._domains_url).json()["hydra:member"]
-        domain = domains[0]["domain"]
-        email = f"pazok_{os.urandom(4).hex()}@{domain}"
-        password = os.urandom(8).hex()
-        self.session.post(self._accounts_url, json={"address": email, "password": password})
-        return email, password
-
-    def _get_token(self):
-        resp = self.session.post(self._token_url, json={"address": self.email,"password": self.password}).json()
-        return resp.get("token")
-        
     def get_email(self):
+        domains = requests.get(f"{self.BASE_URL}/domains").json()["hydra:member"]
+        domain = domains[0]["domain"]
+        self.email = f"pazok_{os.urandom(4).hex()}@{domain}"
+        self.password = os.urandom(8).hex()
+        resp = requests.post(
+            f"{self.BASE_URL}/accounts",
+            json={"address": self.email, "password": self.password}
+        )
+        resp.raise_for_status()
+        self.token = self._fetch_token()
         return self.email, self.password
 
-    def get_box(self):
-        resp = self.session.get(self._messages_url).json()
-        raw_msgs = resp.get("hydra:member", [])
-        msgs = [self.EmailMessage(raw) for raw in raw_msgs]
-        msgs.sort(key=lambda m: datetime.fromisoformat(m.created_at),reverse=True)
-        return msgs
+    def _fetch_token(self):
+        resp = requests.post(
+            f"{self.BASE_URL}/token",
+            json={"address": self.email, "password": self.password}
+        )
+        resp.raise_for_status()
+        return resp.json().get("token")
+
+    def _ensure_token(self):
+        if not self.token:
+            if not (self.email and self.password):
+                raise RuntimeError("Call get_email() first")
+            self.token = self._fetch_token()
+        return self.token
         
-    def new_ms(self):
-        msgs = self.get_box()
-        return msgs[0] if msgs else None
+    def _strip_html(self, html: str) -> str:
+        text = re.sub(r'<script.*?>.*?</script>', '', html, flags=re.DOTALL|re.IGNORECASE)
+        text = re.sub(r'<style.*?>.*?</style>', '', text, flags=re.DOTALL|re.IGNORECASE)
+        text = re.sub(r'<[^>]+>', '', text)
+        return unescape(text).strip()
+
+    def get_messages(self):
+        token = self._ensure_token()
+        headers = {"Authorization": f"Bearer {token}"}
+        resp = requests.get(f"{self.BASE_URL}/messages", headers=headers)
+        resp.raise_for_status()
+        data = resp.json()
+        if data.get("hydra:totalItems", 0) == 0:
+            return None
+
+        out = []
+        for msg in data["hydra:member"]:
+            dl = msg.get("downloadUrl", "")
+            full_url = dl if dl.startswith("http") else self.BASE_URL + dl
+            r = requests.get(full_url, headers=headers)
+            r.raise_for_status()
+            raw = r.text
+
+            msg_obj = email.message_from_string(raw, policy=policy.default)
+            body = ""
+            if msg_obj.is_multipart():
+                part = msg_obj.get_body(preferencelist=('plain',))
+                if part:
+                    body = part.get_content().strip()
+                else:
+                    html_part = msg_obj.get_body(preferencelist=('html',))
+                    if html_part:
+                        body = self._strip_html(html_part.get_content())
+            else:
+                ctype = msg_obj.get_content_type()
+                if ctype == "text/plain":
+                    body = msg_obj.get_content().strip()
+                elif ctype == "text/html":
+                    body = self._strip_html(msg_obj.get_content())
+
+            summary = {
+                "address": msg["from"]["address"],
+                "name": msg["from"]["name"],
+            }
+
+            entry = {
+                **msg,
+                "summary": summary,
+                "raw_message": raw,
+                "full_message": body
+            }
+            out.append(entry)
+        return out
+
+    def get_msg(self):
+        msgs = self.get_messages()
+        return msgs[0]["full_message"] if msgs else None
+    @property
+    def sender_address(self):
+        msgs = self.get_messages()
+        return msgs[0]["summary"]["address"] if msgs else None
+    @property
+    def sender_name(self):
+        msgs = self.get_messages()
+        return msgs[0]["summary"]["name"] if msgs else None
+
 
 
 

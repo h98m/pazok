@@ -144,6 +144,72 @@ def logo():
 def love():
     print("- I love Mariam")
 
+#- - - - - - - - - - - - - - -- - - - - - -- - - - - #
+
+
+
+class tempmail:
+    class EmailMessage:
+        def __init__(self, raw: dict):
+            self._raw = raw
+            self.id              = raw.get("id")
+            self.msgid           = raw.get("msgid")
+            self.from_address    = raw.get("from", {}).get("address")
+            self.from_name       = raw.get("from", {}).get("name")
+            self.to              = [r.get("address") for r in raw.get("to", [])]
+            self.subject         = raw.get("subject")
+            self.intro           = raw.get("intro")
+            self.seen            = raw.get("seen")
+            self.has_attachments = raw.get("hasAttachments")
+            self.size            = raw.get("size")
+            self.download_url    = raw.get("downloadUrl")
+            self.created_at      = raw.get("createdAt")
+            self.updated_at      = raw.get("updatedAt")
+
+        def __repr__(self):
+            return (f"<EmailMessage from={self.from_address!r} "
+                    f"subject={self.subject!r} at {self.created_at}>")
+
+        def as_dict(self):
+            return self._raw
+
+    def __init__(self):
+        self._base_url     = "https://api.mail.tm"
+        self._domains_url  = f"{self._base_url}/domains"
+        self._accounts_url = f"{self._base_url}/accounts"
+        self._token_url    = f"{self._base_url}/token"
+        self._messages_url = f"{self._base_url}/messages"
+        self.session = requests.Session()
+        self.email, self.password = self._create_account()
+        self.token = self._get_token()
+        self.session.headers.update({"Authorization": f"Bearer {self.token}"})
+
+    def _create_account(self):
+        domains = self.session.get(self._domains_url).json()["hydra:member"]
+        domain = domains[0]["domain"]
+        email = f"pazok_{os.urandom(4).hex()}@{domain}"
+        password = os.urandom(8).hex()
+        self.session.post(self._accounts_url, json={"address": email, "password": password})
+        return email, password
+
+    def _get_token(self):
+        resp = self.session.post(self._token_url, json={"address": self.email,"password": self.password}).json()
+        return resp.get("token")
+        
+    def get_email(self):
+        return self.email, self.password
+
+    def get_box(self):
+        resp = self.session.get(self._messages_url).json()
+        raw_msgs = resp.get("hydra:member", [])
+        msgs = [self.EmailMessage(raw) for raw in raw_msgs]
+        msgs.sort(key=lambda m: datetime.fromisoformat(m.created_at),reverse=True)
+        return msgs
+        
+    def new_ms(self):
+        msgs = self.get_box()
+        return msgs[0] if msgs else None
+
 
 
 

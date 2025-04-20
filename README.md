@@ -59,6 +59,91 @@ pazok.tele_ms(token, id, txt=text, img=image, buttons=buttons)
 ```
 ___
 
+# TempMail - pazok
+
+A minimal Python client for the [mail.tm](https://mail.tm) temporary email service.
+
+## Installation
+
+Just place the `pazok` package in your project or install it manually.
+
+---
+
+## Usage Examples
+
+```python
+from pazok import tempmail
+
+# Create a new temp mail account
+tm = tempmail()
+email, password = tm.get_email()
+
+print("Your temporary email:", email)
+
+# Get all messages (inbox)
+messages = tm.get_box()
+for msg in messages:
+    print("From:", msg.from_name)
+    print("Email:", msg.from_address)
+    print("Subject:", msg.subject)
+    print("Preview:", msg.intro)
+    print("Date:", msg.created_at)
+    print("----")
+
+# Get the most recent message only
+latest = tm.new_ms()
+if latest:
+    print("Latest Message:")
+    print("From:", latest.from_address)
+    print("Subject:", latest.subject)
+    print("Content:", latest.intro)
+```
+
+---
+
+## Methods
+
+| Method       | Description                                                               |
+|--------------|---------------------------------------------------------------------------|
+| `get_email()` | Creates a new disposable email account and returns `(email, password)`.   |
+| `get_box()`   | Fetches all messages sorted from newest to oldest as `EmailMessage` objects. |
+| `new_ms()`    | Returns the most recent message (`EmailMessage`) or `None` if inbox empty. |
+
+---
+
+## EmailMessage Attributes
+
+Each email is returned as an `EmailMessage` object with the following fields:
+
+| Attribute         | Description                                                                 |
+|-------------------|-----------------------------------------------------------------------------|
+| `id`              | Internal ID of the message. Useful for referencing or fetching the full message. |
+| `msgid`           | Unique message identifier (from mail headers).                              |
+| `from_address`    | Sender's email address.                                                     |
+| `from_name`       | Sender's display name (if available).                                       |
+| `to`              | List of recipient email addresses (usually just your temporary address).    |
+| `subject`         | The subject line of the message.                                            |
+| `intro`           | A short preview or the beginning of the email body (not the full content).  |
+| `seen`            | Boolean indicating if the message has been marked as read.                  |
+| `has_attachments` | Boolean indicating if the message contains any attachments.                 |
+| `size`            | Size of the message in bytes.                                               |
+| `download_url`    | Endpoint to download the full content of the message.                       |
+| `created_at`      | ISO-formatted date and time when the message was received.                  |
+| `updated_at`      | ISO-formatted date and time when the message was last updated.              |
+
+---
+
+## Example Access
+
+```python
+msg = tm.new_ms()
+if msg:
+    print("Subject:", msg.subject)
+    print("From:", msg.from_name, "<" + msg.from_address + ">")
+    print("Preview:", msg.intro)
+    print("Date:", msg.created_at)
+```
+___
 
 # Function: rand_it
 

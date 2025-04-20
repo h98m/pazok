@@ -109,7 +109,7 @@ while True:
 Email: pazok_1f3a7cbd@ptct.net
 Password: 9b83c8cfa1ee45aa
 Waiting for message...
-From: Bazooka <bronz1231@gmail.com>
+From: fa <paz…@dmi.com>
 ------ Full Message ------
 Hello!
 This is a full message sent to your temporary inbox.

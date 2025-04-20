@@ -104,7 +104,7 @@ while True:
     else:
         time.sleep(3)
 ```
-##Example Output
+## Example Output
 ```python
 Email: pazok_1f3a7cbd@ptct.net
 Password: 9b83c8cfa1ee45aa

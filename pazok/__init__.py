@@ -11,6 +11,7 @@ from .pazok import name_rich
 from .pazok import pazok_halo
 from .pazok import name_halo
 from .pazok import picture
+from .pazok import tempmail
 from .pazok import agnt
 from .pazok import agnt_lite
 from .pazok import agnt_in

@@ -92,7 +92,7 @@ username = "your_username"
 password = "your_password"
 
 # Create an instance and login automatically
-coci = pazok.get_cookies(username, password)
+coci = pazok.cookies_insta(username, password)
 
 # Access all available cookies
 print(coci.token_insta)   # Instagram Authorization Token

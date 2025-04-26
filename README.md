@@ -59,6 +59,53 @@ pazok.tele_ms(token, id, txt=text, img=image, buttons=buttons)
 ```
 ___
 
+
+
+# cookies_insta
+
+This class is designed to handle the process of logging into Instagram and extracting essential cookies automatically.  
+Upon creating an instance, it sends a crafted login request using Instagram's private API and parses important tokens and session data such as:
+
+- `token_insta`
+- `claim`
+- `sessionid`
+- `csrftoken`
+- `ds_user_id`
+- `mid`
+
+Each cookie is stored as a separate attribute, making it easy to access specific values directly after initialization without manual parsing.
+
+Ideal for:
+
+- Automation
+- Bot creation
+- Session management
+
+This class provides a fast, lightweight, and secure method to handle Instagram cookies in your projects.
+
+### Example of Usage:
+
+```python
+import pazok
+
+username = "your_username"
+password = "your_password"
+
+# Create an instance and login automatically
+coci = pazok.get_cookies(username, password)
+
+# Access all available cookies
+print(coci.token_insta)   # Instagram Authorization Token
+print(coci.claim)         # Instagram Claim Token
+print(coci.sessionid)     # Session ID
+print(coci.csrftoken)     # CSRF Token
+print(coci.ds_user_id)    # User ID
+print(coci.mid)           # Machine ID
+```
+
+___
+
+
 # pazok.email_timp
 
 A minimal and user-friendly Python client for [mail.tm](https://mail.tm), a public temporary email service.  

@@ -32,6 +32,7 @@ try:
     import shlex
     import random
     import string
+    import secrets
     from collections import OrderedDict
     from urllib.parse import unquote, urlparse
     import pyperclip
@@ -2012,4 +2013,87 @@ def img_txt(pic=None):
     except:
         return "❌"
 #- - - - - - - - - - - - - - -- - - - - - -- - - - - #
+
+
+
+class cookies_insta:
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+        self.token_insta = None
+        self.claim = None
+        self.sessionid = None
+        self.csrftoken = None
+        self.ds_user_id = None
+        self.mid = None
+        self._get_cookies()
+
+    def _get_cookies(self):
+        url = 'https://i.instagram.com/api/v1/accounts/login/'
+        headers = {
+            "X-FB-Client-IP": "True",
+            "X-IG-Connection-Type": "WiFi",
+            "Accept-Language": "en-EN;q=1.0",
+            "x-fb-rmd": "state=URL_ELIGIBLE",
+            "Host": "i.instagram.com",
+            "X-IG-Capabilities": "36r/F/8=",
+            "X-Bloks-Version-Id": str(secrets.token_hex(8) * 4),
+            "X-IG-App-Locale": "en",
+            "X-IG-ABR-Connection-Speed-KBPS": "130",
+            "X-IG-Timezone-Offset": "10800",
+            "X-IG-Mapped-Locale": "en_EN",
+            "Connection": "keep-alive",
+            "X-IG-App-ID": "124024574287414",
+            "X-FB-Friendly-Name": "api",
+            "X-IG-Bandwidth-Speed-KBPS": "303.000",
+            "X-Bloks-Is-Panorama-Enabled": "true",
+            "Priority": "u=2, i",
+            "X-Pigeon-Rawclienttime": str(time.time()),
+            "User-Agent": str(agnt_in()),
+            "X-IG-Family-Device-ID": str(uuid.uuid4()),
+            "X-MID": str(secrets.token_hex(8) * 2),
+            "X-Tigon-Is-Retry": "False",
+            "Content-Length": "860",
+            "X-FB-Connection-Type": "wifi",
+            "X-IG-Device-ID": str(uuid.uuid4()),
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "X-FB-Server-Cluster": "True",
+            "X-IG-Connection-Speed": "0kbps",
+            "IG-INTENDED-USER-ID": "0",
+            "X-IG-Device-Locale": "en-JO",
+            "X-FB-HTTP-Engine": "Liger"
+        }
+        data = {
+            "phone_id": str(uuid.uuid4()),
+            "reg_login": "0",
+            "device_id": str(uuid.uuid4()),
+            "has_seen_aart_on": "0",
+            "username": self.username,
+            "adid": str(uuid.uuid4()),
+            "login_attempt_count": "0",
+            "enc_password": f"#PWD_INSTAGRAM:0:{str(int(time.time()))}:{self.password}"
+        }
+
+        req = requests.post(url, headers=headers, data=data)
+        if 'logged_in_user' in req.text:
+            hed = req.headers
+            coc = req.headers.get("Set-Cookie")
+            self.token_insta = hed.get("ig-set-authorization")
+            self.claim = hed.get("x-ig-set-www-claim")
+            self.sessionid = self._extract_cookie(coc, "sessionid")
+            self.csrftoken = self._extract_cookie(coc, "csrftoken")
+            self.ds_user_id = self._extract_cookie(coc, "ds_user_id")
+            self.mid = self._extract_cookie(coc, "mid")
+
+    @staticmethod
+    def _extract_cookie(cookie_str, key):
+        try:
+            return cookie_str.split(f"{key}=")[1].split(";")[0]
+        except Exception:
+            return None
+
+
+#- - - - - - - - - - - - - - -- - - - - - -- - - - - #
+
+
 
